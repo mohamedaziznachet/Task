@@ -1,0 +1,13 @@
+{
+  "name": "task-management-app",
+  "version": "1.0.0",
+  "description": "Plateforme MERN de gestion de projets et tâches - ISSAT Kasserine",
+  "scripts": {
+    "dev": "node dev.js",
+    "start": "node dev.js",
+    "backend": "npm run dev --prefix backend",
+    "frontend": "npm run dev --prefix frontend",
+    "seed": "npm run seed --prefix backend",
+    "test": "npm test --prefix backend"
+  }
+}
