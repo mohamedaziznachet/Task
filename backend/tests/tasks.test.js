@@ -190,7 +190,7 @@ describe('📝 Tasks Routes (/api/tasks)', () => {
 
     it('devrait filtrer les tâches par mot-clé de recherche', async () => {
       const res = await request(app)
-        .get('/api/tasks?search=Sécurité')
+        .get('/api/tasks?search=S%C3%A9curit%C3%A9')
         .set('Authorization', `Bearer ${employeToken}`);
 
       expect(res.statusCode).toBe(200);

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_jwt_key_issat_2026';
+
 exports.protect = async (req, res, next) => {
   try {
     let token;
@@ -10,7 +12,7 @@ exports.protect = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: 'Non autorisé, token manquant' });
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
     req.user = await User.findById(decoded.id).select('-password');
     if (!req.user) {
       return res.status(401).json({ message: 'Utilisateur introuvable' });

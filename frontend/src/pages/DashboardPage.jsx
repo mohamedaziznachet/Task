@@ -1,6 +1,7 @@
 // frontend/src/pages/DashboardPage.jsx
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
+import { useToast } from '../context/ToastContext';
 import {
   FolderKanban,
   CheckCircle2,
@@ -9,9 +10,11 @@ import {
   ListTodo,
   Award,
   RefreshCw,
+  Download,
 } from 'lucide-react';
 
 const DashboardPage = () => {
+  const { showSuccess, showError } = useToast();
   const [stats, setStats] = useState({
     totalProjects: 0,
     completedProjects: 0,
@@ -23,13 +26,16 @@ const DashboardPage = () => {
   });
   const [loading, setLoading] = useState(true);
 
-  const fetchStats = async () => {
+  const fetchStats = async (isManual = false) => {
     setLoading(true);
     try {
       const res = await api.get('/dashboard/stats');
       setStats(res.data);
+      if (isManual) {
+        showSuccess('Statistiques actualisées en temps réel.');
+      }
     } catch (err) {
-      console.error('Erreur lors du chargement des statistiques:', err);
+      showError('Erreur lors du chargement des statistiques.');
     } finally {
       setLoading(false);
     }
@@ -46,6 +52,36 @@ const DashboardPage = () => {
     stats.totalProjects > 0
       ? Math.round((stats.completedProjects / stats.totalProjects) * 100)
       : 0;
+
+  // Fonction d'exportation de rapport CSV (Section A - Exportation de rapport)
+  const exportReport = () => {
+    const dateStr = new Date().toLocaleDateString('fr-FR');
+    const timeStr = new Date().toLocaleTimeString('fr-FR');
+    const csvContent =
+      'data:text/csv;charset=utf-8,' +
+      [
+        `RAPPORT D'AVANCEMENT TASKFLOW - ISSAT KASSERINE`,
+        `Généré le;${dateStr} à ${timeStr}`,
+        ``,
+        `Indicateur;Valeur;Détails`,
+        `Nombre total de projets;${stats.totalProjects};Projets enregistrés`,
+        `Projets terminés;${stats.completedProjects};${projectCompletionRate}% d'achèvement`,
+        `Nombre total de tâches;${stats.totalTasks};Toutes priorités confondues`,
+        `Tâches terminées;${stats.completedTasks};${completionRate}% d'avancement global`,
+        `Tâches en cours;${stats.inProgressTasks};En cours d'exécution`,
+        `Tâches non commencées;${stats.notStartedTasks};En attente de démarrage`,
+        `Tâches en retard;${stats.overdueTasks};Date limite dépassée`,
+      ].join('\n');
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `Rapport_TaskFlow_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showSuccess('Rapport CSV téléchargé avec succès.');
+  };
 
   const cards = [
     {
@@ -108,7 +144,7 @@ const DashboardPage = () => {
 
   return (
     <div className="space-y-6">
-      {/* رأس الصفحة */}
+      {/* En-tête */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-white">Tableau de bord & Statistiques</h2>
@@ -116,27 +152,38 @@ const DashboardPage = () => {
             Vue globale en temps réel des projets, des tâches et de leur avancement.
           </p>
         </div>
-        <button
-          onClick={fetchStats}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition self-start"
-        >
-          <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-          <span>Actualiser</span>
-        </button>
+
+        <div className="flex items-center gap-2 self-start">
+          <button
+            onClick={exportReport}
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs font-semibold border border-slate-700 transition shadow-sm"
+          >
+            <Download className="w-4 h-4" />
+            <span>Exporter Rapport (CSV)</span>
+          </button>
+
+          <button
+            onClick={() => fetchStats(true)}
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition shadow-sm"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            <span>Actualiser</span>
+          </button>
+        </div>
       </div>
 
-      {/* البطاقات الـ 7 المطلوبة في الورقة */}
+      {/* Cartes KPI */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((card, idx) => {
           const Icon = card.icon;
           return (
             <div
               key={idx}
-              className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 flex items-start justify-between hover:border-slate-700 transition"
+              className="bg-slate-900/70 border border-slate-800 rounded-2xl p-5 flex items-start justify-between hover:border-slate-700 transition shadow-lg"
             >
               <div>
                 <p className="text-xs font-medium text-slate-400">{card.title}</p>
-                <p className="text-3xl font-bold text-white mt-2">{card.value}</p>
+                <p className="text-3xl font-bold text-white mt-2 font-mono">{card.value}</p>
                 <p className="text-[11px] text-slate-500 mt-1">{card.sub}</p>
               </div>
               <div className={`p-3 rounded-xl border ${card.bg} ${card.color}`}>
@@ -147,10 +194,10 @@ const DashboardPage = () => {
         })}
       </div>
 
-      {/* الرسوم البيانية (Graphiques) المطلوبة في الصفحة 3 */}
+      {/* Graphiques */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* الرسم البياني 1: توزيع حالات المهام */}
-        <div className="lg:col-span-7 bg-slate-900/70 border border-slate-800 rounded-2xl p-6">
+        {/* Répartition des tâches par statut */}
+        <div className="lg:col-span-7 bg-slate-900/70 border border-slate-800 rounded-2xl p-6 shadow-lg">
           <h3 className="text-base font-semibold text-white mb-1">
             Répartition des Tâches par Statut
           </h3>
@@ -203,8 +250,8 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        {/* الرسم البياني 2: دائرة نسبة الإنجاز العام (SVG Donut Chart) */}
-        <div className="lg:col-span-5 bg-slate-900/70 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center">
+        {/* Taux d'avancement global (SVG Donut Chart) */}
+        <div className="lg:col-span-5 bg-slate-900/70 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg">
           <h3 className="text-base font-semibold text-white self-start mb-1">
             Taux d'Avancement Global
           </h3>
@@ -236,8 +283,8 @@ const DashboardPage = () => {
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-3xl font-extrabold text-white">{completionRate}%</span>
-              <span className="text-[11px] text-emerald-400">Terminées</span>
+              <span className="text-3xl font-extrabold text-white font-mono">{completionRate}%</span>
+              <span className="text-[11px] text-emerald-400 font-medium">Terminées</span>
             </div>
           </div>
         </div>

@@ -1,12 +1,14 @@
 // frontend/src/pages/LoginPage.jsx
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import Guardian3D from '../components/Guardian3D';
 import Logo from '../components/Logo';
 import { Shield, Mail, Lock, User, AlertCircle, Zap } from 'lucide-react';
 
 const LoginPage = () => {
   const { login, register } = useAuth();
+  const { showSuccess, showError } = useToast();
   const [isRegister, setIsRegister] = useState(false);
 
   const [name, setName] = useState('');
@@ -25,16 +27,19 @@ const LoginPage = () => {
     try {
       if (isRegister) {
         await register(name, email, password);
+        showSuccess('Compte employé créé ! Bienvenue sur TaskFlow.');
       } else {
         await login(email, password);
+        showSuccess('Connexion réussie. Bienvenue !');
       }
       setVisualMode('success');
     } catch (err) {
       setVisualMode('error');
-      setError(
+      const msg =
         err.response?.data?.message ||
-          'Erreur de connexion au serveur (vérifiez que le backend tourne sur le port 5000)'
-      );
+        'Erreur de connexion au serveur (vérifiez que le backend tourne sur le port 5000)';
+      setError(msg);
+      showError(msg);
     } finally {
       setSubmitting(false);
     }
@@ -44,7 +49,7 @@ const LoginPage = () => {
     <div className="min-h-screen bg-[#060913] text-slate-100 flex items-center justify-center p-4 md:p-8">
       <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-xl">
         
-        {/* الجزء الأيسر: المشهد الـ 3D التفاعلي */}
+        {/* Partie Gauche : Scène 3D Interactive Guardian */}
         <div className="lg:col-span-6 relative bg-gradient-to-br from-slate-950 via-indigo-950/30 to-slate-900 p-6 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-800">
           <div className="flex items-center justify-between z-10">
             <Logo size="md" />
@@ -54,7 +59,7 @@ const LoginPage = () => {
             </span>
           </div>
 
-          {/* المجسم الـ 3D */}
+          {/* Canvas 3D */}
           <div className="my-auto h-72 md:h-80 w-full relative">
             <Guardian3D mode={visualMode} passwordLength={password.length} />
           </div>
@@ -73,7 +78,7 @@ const LoginPage = () => {
           </div>
         </div>
 
-        {/* الجزء الأيمن: استمارة الدخول أو التسجيل */}
+        {/* Partie Droite : Formulaire d'authentification */}
         <div className="lg:col-span-6 p-8 md:p-10 flex flex-col justify-center">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-white">

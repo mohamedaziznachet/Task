@@ -4,11 +4,14 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Task = require('../models/Task');
 const { protect, authorize } = require('../middleware/auth');
+const { recordActivity } = require('../utils/activityHelper');
 
 const router = express.Router();
 
+const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_jwt_key_issat_2026';
+
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  return jwt.sign({ id }, JWT_SECRET, { expiresIn: '7d' });
 };
 
 // تسجيل حساب جديد
@@ -21,14 +24,12 @@ router.post('/register', async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Déterminer le rôle : 'Employé' obligatoire pour toute inscription publique
     let assignedRole = 'Employé';
 
-    // Seul un Administrateur connecté peut éventuellement spécifier un rôle différent lors de l'ajout
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       try {
         const token = req.headers.authorization.split(' ')[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, JWT_SECRET);
         const requester = await User.findById(decoded.id);
         if (requester && requester.role === 'Administrateur' && req.body.role) {
           const allowedRoles = ['Administrateur', 'Chef de projet', 'Employé'];
@@ -79,6 +80,47 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// تحديث الملف الشخصي وتغيير كلمة السر (Section A - Profil Utilisateur)
+router.put('/profile', protect, async (req, res) => {
+  try {
+    const { name, currentPassword, newPassword } = req.body;
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur introuvable' });
+    }
+
+    if (name) {
+      user.name = name.trim();
+    }
+
+    if (newPassword) {
+      if (!currentPassword) {
+        return res.status(400).json({ message: 'Le mot de passe actuel est requis pour définir un nouveau mot de passe.' });
+      }
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: 'Mot de passe actuel incorrect.' });
+      }
+      if (newPassword.length < 6) {
+        return res.status(400).json({ message: 'Le nouveau mot de passe doit comporter au moins 6 caractères.' });
+      }
+      user.password = await bcrypt.hash(newPassword, 10);
+    }
+
+    await user.save();
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token: generateToken(user._id)
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // جلب قائمة الموظفين والمستخدمين
 router.get('/users', protect, async (req, res) => {
   try {
@@ -98,7 +140,6 @@ router.put('/users/:id', protect, async (req, res) => {
       return res.status(404).json({ message: 'Utilisateur introuvable' });
     }
 
-    // Seul un Administrateur est autorisé à modifier le rôle
     if (role && role !== targetUser.role) {
       if (req.user.role !== 'Administrateur') {
         return res.status(403).json({
@@ -111,7 +152,6 @@ router.put('/users/:id', protect, async (req, res) => {
       }
     }
 
-    // Si l'utilisateur n'est pas Administrateur, il ne peut pas modifier un autre compte
     if (req.user.role !== 'Administrateur' && req.user._id.toString() !== req.params.id) {
       return res.status(403).json({
         message: 'Action non autorisée'
@@ -130,6 +170,18 @@ router.put('/users/:id', protect, async (req, res) => {
       updates,
       { new: true, runValidators: true }
     ).select('-password');
+
+    if (role && role !== targetUser.role) {
+      await recordActivity({
+        user: req.user._id,
+        action: 'ROLE_UPDATED',
+        targetType: 'User',
+        targetTitle: targetUser.name,
+        targetId: targetUser._id,
+        details: `Rôle mis à niveau de "${targetUser.role}" à "${role}"`,
+        notifyUser: targetUser._id
+      });
+    }
 
     res.json(user);
   } catch (err) {
