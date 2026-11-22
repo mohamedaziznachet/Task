@@ -7,7 +7,7 @@ const Project = require('./models/Project');
 const Task = require('./models/Task');
 const { recalculateProjectStatus } = require('./utils/projectStatusHelper');
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/issat_project_management';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/taskflow_management';
 
 async function seedDatabase() {
   try {
@@ -27,37 +27,37 @@ async function seedDatabase() {
 
     const adminUser = await User.create({
       name: 'Directeur Admin',
-      email: 'admin@issat.tn',
+      email: 'admin@taskflow.dev',
       password: defaultPassword,
       role: 'Administrateur'
     });
 
     const chefProjetUser = await User.create({
       name: 'Sami Khelifi (Chef)',
-      email: 'chef@issat.tn',
+      email: 'chef@taskflow.dev',
       password: defaultPassword,
       role: 'Chef de projet'
     });
 
     const employe1 = await User.create({
       name: 'Amira Trabelsi (Dev)',
-      email: 'amira@issat.tn',
+      email: 'amira@taskflow.dev',
       password: defaultPassword,
       role: 'Employé'
     });
 
     const employe2 = await User.create({
       name: 'Yassine Ayari (Design)',
-      email: 'yassine@issat.tn',
+      email: 'yassine@taskflow.dev',
       password: defaultPassword,
       role: 'Employé'
     });
 
     console.log(`✅ 4 Utilisateurs créés :
-      - Admin: admin@issat.tn (Administrateur)
-      - Chef de Projet: chef@issat.tn (Chef de projet)
-      - Employé 1: amira@issat.tn (Employé)
-      - Employé 2: yassine@issat.tn (Employé)
+      - Admin: admin@taskflow.dev (Administrateur)
+      - Chef de Projet: chef@taskflow.dev (Chef de projet)
+      - Employé 1: amira@taskflow.dev (Employé)
+      - Employé 2: yassine@taskflow.dev (Employé)
       [Mot de passe commun : Password123!]`);
 
     // 3. Création des Projets
@@ -70,7 +70,7 @@ async function seedDatabase() {
     const fiveDaysAgo = new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000);
 
     const project1 = await Project.create({
-      name: 'Plateforme E-learning ISSAT',
+      name: 'Plateforme E-learning Intelligente',
       description: 'Conception et déploiement de la plateforme d’apprentissage interactif et gestion des cours.',
       startDate: tenDaysAgo,
       endDate: inThirtyDays,

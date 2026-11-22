@@ -131,7 +131,7 @@ const LoginPage = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onFocus={() => setVisualMode('idle')}
-                  placeholder="ali@issat.tn"
+                  placeholder="alex@example.com"
                   className="w-full bg-slate-950 border border-slate-800 focus:border-sky-500 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white outline-none transition"
                 />
               </div>

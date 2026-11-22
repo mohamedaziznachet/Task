@@ -35,7 +35,7 @@ const PORT = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV !== 'test') {
   mongoose
-    .connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/issat_project_management')
+    .connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/taskflow_management')
     .then(() => {
       console.log('✅ Connected to MongoDB');
       server.listen(PORT, () => console.log(`🚀 Server with Socket.io running on http://localhost:${PORT}`));

@@ -26,7 +26,6 @@ import {
   Upload,
   Download,
   File,
-  CheckCircle2,
 } from 'lucide-react';
 
 const TasksPage = () => {

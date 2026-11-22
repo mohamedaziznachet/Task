@@ -60,7 +60,7 @@ const DashboardPage = () => {
     const csvContent =
       'data:text/csv;charset=utf-8,' +
       [
-        `RAPPORT D'AVANCEMENT TASKFLOW - ISSAT KASSERINE`,
+        `RAPPORT D'AVANCEMENT GLOBAL - TASKFLOW`,
         `Généré le;${dateStr} à ${timeStr}`,
         ``,
         `Indicateur;Valeur;Détails`,

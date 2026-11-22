@@ -1,6 +1,6 @@
 // frontend/src/components/CalendarView.jsx
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-react';
 
 const CalendarView = ({ tasks = [], onSelectTask }) => {
   const [currentDate, setCurrentDate] = useState(new Date());

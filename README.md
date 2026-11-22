@@ -1,143 +1,165 @@
-# 🚀 TaskFlow — Plateforme Collaborative de Gestion de Projets & Tâches
-### ISSAT Kasserine • 3 GLSI • Génie Logiciel & Web Avancé
+# ⚡ TaskFlow — Enterprise Project & Task Management Platform
 
-![React 19](https://img.shields.io/badge/React-19.3.1-61DAFB?logo=react&logoColor=black)
-![Node.js](https://img.shields.io/badge/Node.js-v20+-339933?logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express-4.19.2-000000?logo=express&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?logo=mongodb&logoColor=white)
-![Socket.io](https://img.shields.io/badge/Socket.io-4.8.4-010101?logo=socket.io&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-0.186.1-000000?logo=three.js&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4.19-06B6D4?logo=tailwindcss&logoColor=white)
-![Jest Tests](https://img.shields.io/badge/Tests-30%2F30%20Passed-brightgreen?logo=jest&logoColor=white)
-![License](https://img.shields.io/badge/Academic-3_GLSI-blue)
-
----
-
-## 📌 À propos du Projet
-
-**TaskFlow** est une application web moderne et réactive conçue selon l'architecture **MERN 3-Tiers** (MongoDB, Express, React, Node.js). Elle centralise la planification agile, la délégation des activités, la collaboration en temps réel et le pilotage analytique des projets.
-
-Elle intègre un **moteur 3D interactif Three.js** pour une expérience d'authentification immersive, un système de **synchronisation WebSocket bidirectionnelle avec Socket.io**, et un moteur de **recalcul automatique de l'avancement des projets (RG-08)**.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" />
+  <img src="https://img.shields.io/badge/Node.js-v20+-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express-4.19.2-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/Socket.io-4.8.4-010101?style=for-the-badge&logo=socket.io&logoColor=white" alt="Socket.io" />
+  <img src="https://img.shields.io/badge/Three.js-WebGL-000000?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js" />
+  <img src="https://img.shields.io/badge/TailwindCSS-3.4.19-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Tests-30%2F30%20Passed-brightgreen?style=for-the-badge&logo=jest&logoColor=white" alt="Jest Tests" />
+</p>
 
 ---
 
-## 💼 Résumé pour CV / Portfolio (Descriptions prêtes à l'emploi)
+## 📌 Présentation du Projet
 
-### Format avec puces (Recommandé pour CV & filtres ATS) :
-> **TaskFlow – Plateforme Web Collaborative de Gestion de Projets & Tâches** *(MERN Stack)*  
-> **Technologies :** React 19, Node.js, Express.js, MongoDB, Socket.io, Three.js, Tailwind CSS, JWT, Bcrypt, Multer, Jest  
-> * **Architecture Full-Stack & Planification Avancée :** Développement d'une SPA sous React 19 et Node.js/Express intégrant 4 vues de pilotage synchronisées (Tableau Kanban Drag & Drop, Chronogramme Gantt, Calendrier et Liste filtrable) avec moteur de recalcul automatique du pourcentage d'avancement des projets.  
-> * **Temps Réel & Collaboration (Socket.io) :** Mise en place d'une synchronisation bidirectionnelle instantanée pour les déplacements de tâches, système de notifications push en direct et journal d'audit de traçabilité des activités.  
-> * **Sécurité RBAC, Gestion Documentaire & 3D :** Authentification sécurisée par JWT et Bcrypt avec gestion granulaire de 3 rôles (Admin, Chef de projet, Employé), téléversement de pièces jointes (Multer), animation 3D interactive sous Three.js et couverture de **30 tests d'intégration** (Jest/Supertest).
+**TaskFlow** est une plateforme SaaS complète de gestion de projets et d'orchestration de tâches d'entreprise conçue selon l'architecture **MERN 3-Tiers** (MongoDB, Express, React 19, Node.js).
 
-### Format Paragraphe Court (Idéal pour LinkedIn ou CV 1 page) :
-> Conception et réalisation d'une application web collaborative centralisant la gestion de projets et l'affectation de tâches. Implémentation d'un tableau Kanban interactif (Drag & Drop), d'un planning Gantt et d'un calendrier avec synchronisation en temps réel via Socket.io et calcul automatique de l'avancement. Sécurisation des accès selon 3 rôles (RBAC) par JWT/Bcrypt, gestion des pièces jointes (Multer), animation 3D avec Three.js et validation par 30 tests automatisés Jest/Supertest.
+Elle allie une expérience utilisateur ultra-réactive (Tableau Kanban glisser-déposer, chronogramme Gantt, calendrier interactif, moteur 3D Three.js) à un backend robuste et temps réel propulsé par **Socket.io**, garantissant une synchronisation instantanée multi-utilisateurs et une traçabilité intégrale via un journal d'audit.
 
 ---
 
-## ✨ Fonctionnalités Clés
+## ✨ Fonctionnalités Majeures
 
-### 1. 📊 4 Vues Multidimensionnelles de Planification
-- **Tableau Kanban Interactif :** Déplacement fluide des tâches par glisser-déposer (*Drag & Drop*) entre les colonnes *Non commencée*, *En cours* et *Terminée*.
-- **Chronogramme Gantt / Timeline :** Visualisation horizontale des durées de tâches et anticipation des chevauchements.
-- **Vue Calendrier Mensuel :** Positionnement visuel des échéances calendaires avec modale rapide d'édition.
-- **Vue Liste Tabulaire :** Tableau structuré avec tri par colonne et filtres multicritères (statut, priorité, projet, membre assigné, date).
+### 1. 📊 4 Vues Synchronisées de Pilotage
+- **Tableau Kanban Drag & Drop :** Organisation fluide des flux de travail par glisser-déposer entre les colonnes (*À faire*, *En cours*, *Terminé*) avec persistance immédiate en base de données.
+- **Chronogramme Gantt (Timeline) :** Planification temporelle interactive, détection des chevauchements de dates et suivi des jalons de projet.
+- **Calendrier Mensuel Interactif :** Visualisation matricielle des échéances avec modale d'édition rapide et alertes visuelles de retards.
+- **Vue Liste Tabulaire :** Tableau de données complet avec recherche plein texte et filtrage multicritères (statut, priorité, projet, assignation, dates).
 
-### 2. ⚡ Synchronisation & Temps Réel (Socket.io)
-- Propagation instantanée des changements d'état du Kanban sur tous les écrans connectés sans rechargement.
-- Système de notifications push ciblées (`notification:new`) avec badge dynamique dans l'en-tête.
-- Flux d'activités et journal d'audit en direct (`activity:new`).
+### 2. ⚡ Moteur Temps Réel (WebSockets / Socket.io)
+- **Synchronisation d'état multi-clients :** Mise à jour instantanée des tâches et projets sans rechargement de page (`task:created`, `task:updated`, `task:status_changed`, `task:deleted`).
+- **Notifications Push Ciblées :** Alertes directes aux membres assignés avec badge dynamique interactif dans l'en-tête.
+- **Journal d'Audit en Direct :** Traçabilité horodatée de toutes les opérations métier avec affichage temps réel (`activity:new`).
 
-### 3. 🛡️ Contrôle d'Accès & Sécurité (RBAC)
-- **3 Niveaux de Rôles :** `Administrateur`, `Chef de projet` et `Employé`.
-- Mots de passe chiffrés par **Bcrypt.js** avec 10 tours de salage dynamique.
-- Sessions sécurisées par **JSON Web Tokens (JWT Bearer)** avec intercepteur Axios automatique.
-- Garde-fous d'intégrité métier : interdiction de supprimer un projet contenant des tâches actives (**RG-02**) ou un employé avec des tâches en cours (**RG-15**).
+### 3. 🛡️ Sécurité & Contrôle d'Accès Basé sur les Rôles (RBAC)
+- **3 Rôles Métier Granulaires :**
+  - **Administrateur :** Gouvernance globale, gestion des comptes utilisateurs, supervision de tous les projets et accès au journal d'audit complet.
+  - **Chef de Projet :** Création et pilotage des projets, délégation des tâches, suivi de l'avancement global et gestion d'équipe.
+  - **Employé :** Consultation de ses tâches assignées, mise à jour des statuts, gestion des listes de contrôle et participation aux discussions.
+- **Sécurisation OWASP :** Hachage des mots de passe par **Bcrypt.js** (10 tours de salage), jetons d'authentification **JWT** stateless avec intercepteur Axios automatique et protection des routes par middleware.
 
-### 4. 📁 Gestion Documentaire & Checklists
-- **Pièces Jointes (Multer) :** Téléversement et suppression de documents et justificatifs jusqu'à 10 Mo par tâche.
-- **Checklists de Sous-Tâches :** Découpage granulaire des tâches avec cochage interactif et suivi d'achèvement.
-- **Fil de Discussion :** Commentaires horodatés pour la collaboration d'équipe.
+### 4. 📁 Collaboration & Gestion Documentaire
+- **Checklists de Sous-Tâches :** Découpage granulaire des livrables avec recalcul dynamique du taux de progression de la tâche.
+- **Pièces Jointes & Fichiers (Multer) :** Téléversement sécurisé de documents, cahiers des charges et livrables (jusqu'à 10 Mo) avec téléchargement et suppression contrôlée.
+- **Fils de Discussion :** Espace de commentaires horodatés par tâche pour faciliter la communication interne de l'équipe.
 
-### 5. 📈 Tableau de Bord Analytique & Export CSV
-- 7 indicateurs de performance clés (KPIs) calculés en temps réel (total projets, tâches terminées, en cours, retards).
-- Export instantané d'un rapport complet au format tableur **CSV**.
+### 5. 📈 Dashboard Analytique & Export de Rapports
+- Calcul en temps réel de 7 métriques de performance (projets totaux, taux d'achèvement, tâches en cours, alertes de dépassement d'échéance).
+- **Export CSV automatisé :** Génération en 1 clic d'un rapport de performance consolidé pour les revues de direction.
 
 ### 6. 🌐 Expérience 3D Interactive (Three.js WebGL)
-- Noyau 3D interactif (*Guardian 3D*) réagissant en temps réel à 60 FPS aux interactions de l'utilisateur sur la page de connexion (lueur bleue, violette, verte ou rouge selon l'état de validation).
+- Intégration d'un noyau 3D interactif (*Guardian 3D*) développé sous **Three.js** réagissant à 60 FPS aux actions de l'utilisateur sur la page d'authentification (focalisation, saisie sécurisée du mot de passe, succès ou erreur).
 
 ---
 
 ## 👥 Matrice des Rôles et Permissions (RBAC)
 
-| Fonctionnalité | Visiteur | Employé | Chef de projet | Administrateur |
-| :--- | :---: | :---: | :---: | :---: |
-| Inscription & Connexion 3D | ✅ | ✅ | ✅ | ✅ |
-| Modifier son profil & mot de passe | ❌ | ✅ | ✅ | ✅ |
-| Consulter le Dashboard (7 KPIs) & Export CSV | ❌ | ✅ | ✅ | ✅ |
-| Vues Kanban, Gantt, Calendrier et Liste | ❌ | ✅ | ✅ | ✅ |
-| Modifier le statut de ses tâches | ❌ | ✅ | ✅ | ✅ |
-| Gérer sous-tâches, pièces jointes & commentaires | ❌ | ✅ | ✅ | ✅ |
-| Créer, modifier et supprimer des projets | ❌ | ❌ | ✅ | ✅ |
-| Créer, assigner et supprimer des tâches | ❌ | ❌ | ✅ | ✅ |
-| Gérer l'annuaire des utilisateurs & rôles | ❌ | ❌ | ❌ | ✅ |
-| Suppression sécurisée des comptes (RG-15) | ❌ | ❌ | ❌ | ✅ |
+| Fonctionnalité | Employé | Chef de projet | Administrateur |
+| :--- | :---: | :---: | :---: |
+| Connexion & Expérience 3D WebGL | ✅ | ✅ | ✅ |
+| Modification du profil & mot de passe personnel | ✅ | ✅ | ✅ |
+| Tableau de bord analytique (KPIs) & Export CSV | ✅ | ✅ | ✅ |
+| Vues Kanban, Gantt, Calendrier et Liste | ✅ | ✅ | ✅ |
+| Mise à jour du statut des tâches assignées | ✅ | ✅ | ✅ |
+| Gestion des sous-tâches, pièces jointes & commentaires | ✅ | ✅ | ✅ |
+| Création, modification et clôture des projets | ❌ | ✅ | ✅ |
+| Création, assignation et suppression de tâches | ❌ | ✅ | ✅ |
+| Gestion des utilisateurs (Création, Rôles, Suppression) | ❌ | ❌ | ✅ |
+| Consultation du Journal d'Audit Système | ❌ | ❌ | ✅ |
 
 ---
 
-## 🛠️ Installation et Démarrage Rapide
+## 🏗️ Architecture Technique
 
-### 1. Cloner le projet
+```
+Task/
+├── backend/                  # API REST & Serveur WebSocket (Node.js / Express)
+│   ├── middleware/           # Middleware d'authentification JWT & RBAC
+│   ├── models/               # Modèles de données Mongoose (User, Project, Task, Activity)
+│   ├── routes/               # Contrôleurs & Routes REST (Auth, Projects, Tasks, Dashboard, Activity)
+│   ├── tests/                # Suite de 30 tests automatisés d'intégration (Jest & Supertest)
+│   ├── utils/                # Logique métier (calcul de progression, helpers d'audit)
+│   ├── socket.js             # Gestionnaire d'événements Socket.io en temps réel
+│   └── server.js             # Point d'entrée de l'API et connexion MongoDB
+│
+├── frontend/                 # Client SPA Moderne (React 19, Vite, Tailwind CSS)
+│   ├── public/               # Favicon & assets statiques
+│   └── src/
+│       ├── components/       # Composants réutilisables (Kanban, Gantt, Calendrier, Guardian 3D, Modales)
+│       ├── context/          # Contextes React (AuthContext, SocketContext, ToastContext)
+│       ├── pages/            # Vues applicatives (Dashboard, Projects, Tasks, Activity, Users, Login)
+│       └── services/         # Client HTTP Axios avec intercepteurs automatiques
+│
+├── dev.js                    # Script d'orchestration pour lancer Frontend & Backend en une commande
+└── package.json              # Scripts racine du projet
+```
+
+---
+
+## 🚀 Installation & Démarrage Rapide
+
+### Prérequis
+- **Node.js** >= 18.x
+- **MongoDB** local ou cluster **MongoDB Atlas**
+- **Git**
+
+### 1. Cloner le dépôt
 ```bash
-git clone https://github.com/montassar088/Task.git
+git clone https://github.com/mohamedaziznachet/Task.git
 cd Task
 ```
 
-### 2. Installer les dépendances
+### 2. Installer toutes les dépendances
 ```bash
-# Backend
+# Installation des dépendances racine, backend et frontend
+npm install
 cd backend && npm install
-
-# Frontend
 cd ../frontend && npm install
+cd ..
 ```
 
-### 3. Variables d'environnement
-Créez le fichier `backend/.env` (ou copiez `backend/.env.example`) :
+### 3. Configuration des variables d'environnement
+Créez un fichier `.env` dans le dossier `backend/` (ou copiez `backend/.env.example`) :
 ```env
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/issat_project_management
-JWT_SECRET=super_secret_jwt_key_issat_2026
+MONGO_URI=mongodb://127.0.0.1:27017/taskflow_management
+JWT_SECRET=super_secret_jwt_key_taskflow_2026
 ```
 
-### 4. Initialiser la base de données (Seed)
+### 4. Peupler la base de données (Jeu de données de démo)
 ```bash
 npm run seed --prefix backend
 ```
-*Comptes de test préconfigurés (Mot de passe commun : `Password123!`) :*
-- 🛡️ **Admin** : `admin@issat.tn`
-- 👔 **Chef de projet** : `chef@issat.tn`
-- 💼 **Employés** : `amira@issat.tn`, `yassine@issat.tn`
 
-### 5. Lancer l'application (Commande unique)
-À la racine du projet :
+> **Comptes de test préconfigurés (Mot de passe commun : `Password123!`) :**
+> - 🛡️ **Administrateur :** `admin@taskflow.dev`
+> - 👔 **Chef de projet :** `chef@taskflow.dev`
+> - 💼 **Employé 1 :** `amira@taskflow.dev`
+> - 💼 **Employé 2 :** `yassine@taskflow.dev`
+
+### 5. Lancer l'application
+Depuis la racine du projet, lancez simultanément le frontend et le backend :
 ```bash
 npm run dev
 ```
-- **Application Web (Frontend)** : [http://localhost:5173](http://localhost:5173)
-- **API REST & WebSockets (Backend)** : [http://localhost:5000](http://localhost:5000)
+
+- 🌐 **Interface Web (Frontend) :** [http://localhost:5173](http://localhost:5173)
+- 🔌 **API REST & WebSockets (Backend) :** [http://localhost:5000](http://localhost:5000)
 
 ---
 
 ## 🧪 Tests Automatisés
 
-La plateforme intègre **30 tests d'intégration automatisés** avec Jest et Supertest couvrant l'authentification, les règles RBAC, la gestion des projets, la validation des dates et le cycle de vie des tâches :
+Le backend est sécurisé par une suite complète de **30 tests d'intégration** exécutés avec **Jest** et **Supertest** sur une base de données en mémoire (**MongoDB Memory Server**) :
 
 ```bash
 npm test --prefix backend
 ```
 
-```
+```text
 PASS tests/tasks.test.js
 PASS tests/auth.test.js
 PASS tests/projects.test.js
@@ -146,23 +168,32 @@ PASS tests/dashboard.test.js
 Test Suites: 4 passed, 4 total
 Tests:       30 passed, 30 total
 Snapshots:   0 total
+Time:        4.82 s
 ```
 
 ---
 
-## 📐 Dossier de Conception & Architecture UML
+## 💼 Descriptions pour CV & Profil Professionnel
 
-Le projet dispose d'une documentation technique et d'ingénierie logicielle exhaustive :
-- 📑 **Contexte Technique Maître :** [`PROJECT_CONTEXT.md`](./PROJECT_CONTEXT.md)
-- 📚 **Dossier d'Architecture Complet (10 chapitres) :** [`technical-documentation/`](./technical-documentation/)
-- 🖼️ **Diagramme des Cas d'Utilisation :** [`diagramme_cas_utilisation.drawio`](./diagramme_cas_utilisation.drawio) & [`diagramme_cas_utilisation.png`](./diagramme_cas_utilisation.png)
-- 🖼️ **Diagrammes de Séquence (Global & Auth) :** [`diagramme_sequence_principal.drawio`](./diagramme_sequence_principal.drawio) & [`diagramme_sequence.png`](./diagramme_sequence.png)
-- 📄 **Cahier des Charges Universitaire (6 pages) :** [`Cahier_Des_Charges_TaskFlow_3GLSI.pdf`](./Cahier_Des_Charges_TaskFlow_3GLSI.pdf) & [`.docx`](./Cahier_Des_Charges_TaskFlow_3GLSI.docx)
+### Format avec Puces (Recommandé pour CV & filtres ATS) :
+> **Développeur Full-Stack (Projet Personnel) – TaskFlow**  
+> *Plateforme Web Collaborative de Gestion de Projets & Tâches (React 19, Node.js, Express, MongoDB, Socket.io, Three.js, Tailwind CSS, Jest)*  
+> - **Architecture Full-Stack & Planification Avancée :** Développement d'une SPA réactive sous React 19 et Node.js/Express intégrant 4 vues synchronisées (Kanban Drag & Drop, Chronogramme Gantt, Calendrier et Liste filtrable) avec moteur de recalcul automatique de l'avancement des projets.  
+> - **Temps Réel & Collaboration (Socket.io) :** Implémentation d'une synchronisation bidirectionnelle instantanée pour les déplacements de tâches, système de notifications push en direct et journal d'audit des activités d'équipe.  
+> - **Sécurité RBAC, Gestion Documentaire & 3D :** Contrôle d'accès granulaire sur 3 rôles (Admin, Chef de projet, Employé) via JWT et Bcrypt, gestion de pièces jointes jusqu'à 10 Mo (Multer), animation 3D interactive sous Three.js WebGL et validation par **30 tests d'intégration** (Jest/Supertest).
+
+### Format Paragraphe Synthétique (LinkedIn / Bio) :
+> Conception et développement de **TaskFlow**, une plateforme collaborative de gestion de projets d'entreprise sous architecture MERN (React 19, Node.js, Express, MongoDB). Mise en œuvre de 4 vues de planification synchronisées (Kanban interactif, Gantt, Calendrier, Liste), d'un moteur temps réel via WebSockets (Socket.io) pour les mises à jour instantanées et les notifications push, d'une gestion documentaire sécurisée (Multer), d'une authentification RBAC (JWT/Bcrypt) et d'une scène 3D interactive sous Three.js. Projet entièrement testé et validé par 30 tests automatisés Jest/Supertest.
 
 ---
 
-## 👨‍💻 Auteurs & Cadre Académique
-- **Projet :** TaskFlow Web Application
-- **Filière :** 3ème Année GLSI (Génie Logiciel et Systèmes d'Information)
-- **Établissement :** Institut Supérieur des Sciences Appliquées et de Technologie de Kasserine (**ISSAT Kasserine**)
-- **Enseignante Responsable :** Mme A. Yengui
+## 👤 Auteur
+
+**Mohamed Aziz Nachet**
+- GitHub : [@mohamedaziznachet](https://github.com/mohamedaziznachet)
+- Projet : [https://github.com/mohamedaziznachet/Task](https://github.com/mohamedaziznachet/Task)
+
+---
+
+## 📄 Licence
+Ce projet est sous licence MIT — libre d'utilisation et d'adaptation.

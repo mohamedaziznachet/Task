@@ -1,6 +1,6 @@
 // frontend/src/components/GanttView.jsx
 import React from 'react';
-import { GanttChartSquare, Calendar, CheckCircle2, Clock, CircleDashed } from 'lucide-react';
+import { GanttChartSquare, Calendar } from 'lucide-react';
 
 const GanttView = ({ projects = [], tasks = [], onSelectTask }) => {
   // Calculer l'intervalle global (date minimale et date maximale)

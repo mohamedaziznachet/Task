@@ -50,9 +50,9 @@ const Logo = ({ size = 'md', showSubtitle = true }) => {
         </div>
         {showSubtitle && (
           <p className="text-[11px] text-slate-400 font-medium tracking-tight flex items-center gap-1">
-            <span>ISSAT KASSERINE</span>
+            <span>PROJECT & TASK</span>
             <span className="text-slate-600">•</span>
-            <span className="text-sky-400/90">3 GLSI</span>
+            <span className="text-sky-400/90">ENTERPRISE</span>
           </p>
         )}
       </div>
